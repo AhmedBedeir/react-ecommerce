@@ -3,3 +3,10 @@
 * {
   font-family: "Open Sans", sans-serif;
 }
+.brr {
+  border: 1px solid red;
+}
+
+.bry {
+  border: 1px solid yellow;
+}
