@@ -24,10 +24,11 @@ function Top() {
       <Container maxWidth="lg">
         <Stack direction={"row"} alignItems={"center"}>
           <Chip
-            color="info"
+            color="primary"
             label={"Hot"}
             size="small"
             style={{ margin: "5px", fontWeight: "bold" }}
+            variant="outlined"
           />
           <Typography
             sx={{

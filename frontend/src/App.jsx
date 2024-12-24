@@ -1,6 +1,6 @@
 import MainHeader from "./components/header/MainHeader";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { ColorModeContext, useMode } from "./theme";
+import { ColorModeContext, useMode } from "./Theme";
 
 function App() {
   const [theme, colorMode] = useMode();
