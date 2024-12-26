@@ -11,6 +11,7 @@ import {
 import HeroSlider from "./HeroSlider";
 import banner1 from "../../assets/banner-16.jpg";
 import banner2 from "../../assets/banner-17.jpg";
+import IconSection from "./IconSection";
 const heroHeight = "485px";
 const imgBox = {
   width: "345px",
@@ -50,7 +51,7 @@ function Hero() {
       >
         <Box
           sx={{
-            width: { sm: "100%", md: "70%" },
+            width: { xs: "100%", sm: "100%", md: "70%" },
             height: heroHeight,
             borderRadius: "10px",
           }}
@@ -60,7 +61,8 @@ function Hero() {
 
         <Box
           sx={{
-            display: { sm: "none", md: "block", width: "30%" },
+            display: { xs: "none", sm: "none", md: "block" },
+            width: "30%",
           }}
         >
           <Box sx={{ ...bannerBox, mb: 1 }}>
@@ -71,6 +73,7 @@ function Hero() {
                   width="100%"
                   height="100%"
                   style={{ borderRadius: "10px" }}
+                  animation="wave"
                 />
               ) : (
                 <img
@@ -150,6 +153,7 @@ function Hero() {
                   width="100%"
                   height="100%"
                   style={{ borderRadius: "10px" }}
+                  animation="wave"
                 />
               ) : (
                 <img
@@ -221,6 +225,7 @@ function Hero() {
           </Box>
         </Box>
       </Box>
+      <IconSection />
     </Container>
   );
 }
