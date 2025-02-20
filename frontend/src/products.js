@@ -75,6 +75,8 @@ export const products = [
     title: "Golden Ring",
     price: "25",
     description:
+
+    
       "Add a touch of luxury to your look with our elegant golden ring. Crafted from high-quality gold, this ring showcases a timeless design that exudes sophistication and charm.",
     category: "women",
     image: ring1,
