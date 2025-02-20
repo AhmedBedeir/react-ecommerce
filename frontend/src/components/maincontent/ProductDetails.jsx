@@ -1,6 +1,9 @@
+/* eslint-disable react/prop-types */
 import { AddShoppingCartOutlined } from "@mui/icons-material";
 import { Box, Button, Stack, Typography } from "@mui/material";
-function ProductDetails() {
+// eslint-disable-next-line react/prop-types
+
+function ProductDetails({ product }) {
   return (
     <Box
       sx={{
@@ -13,32 +16,27 @@ function ProductDetails() {
       <Box sx={{ display: "flex" }}>
         <img
           width={360}
-          src={"https://mui.com/static/images/cards/contemplative-reptile.jpg"}
+          src={product.image}
           alt={"product"}
         />
       </Box>
       <Box sx={{ py: 2, textAlign: { xs: "center", sm: "left" } }}>
-        <Typography variant="h5">Lorem ipsum dolor sit.</Typography>
+        <Typography variant="h5">{product.title}</Typography>
         <Typography my={0.4} fontSize={"22px"} color={"crimson"} variant="h6">
-          $ 99.99
+          ${product.price}
         </Typography>
-        <Typography variant="body1">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-          voluptate, nemo, quod, quas aspernatur quae quia voluptatem
-          exercitationem doloribus tempora.
-        </Typography>
+        <Typography variant="body1">{product.description}</Typography>
         <Stack
           sx={{ justifyContent: { xs: "center", sm: "left" } }}
           direction={"row"}
           gap={1}
           my={2}
         >
-          <img
-            src="https://mui.com/static/images/cards/contemplative-reptile.jpg"
-            alt="details"
-            width={80}
-            height={80}
-          />
+          {
+            product.detailedImgs.map((img, index) => (
+              <img key={index} src={img} alt="details" width={80} height={80} />
+            ))
+          }
         </Stack>
         <Button
           sx={{ mb: { xs: 1, sm: 0 }, textTransform: "capitalize" }}

@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  CircularProgress,
   Container,
   Dialog,
   IconButton,
@@ -21,25 +20,30 @@ import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutl
 import { Close } from "@mui/icons-material";
 import { AnimatePresence, motion } from "framer-motion";
 import ProductDetails from "./ProductDetails";
-import { useGetProductByNameQuery } from "../../redux/product";
+// import { useGetProductByNameQuery } from "../../redux/product";
+import { products } from "../../products";
 
 function MainContent() {
   const theme = useTheme();
   const [category, setCategory] = useState("all");
-  const [categoryUrl, setCategoryUrl] = useState("products?populate=*");
   const [open, setOpen] = useState(false);
-  const { data, error, isLoading } = useGetProductByNameQuery(categoryUrl);
-  const handleClickOpen = () => {
+  const [data, setData] = useState(products);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  // const { data, error, isLoading } = useGetProductByNameQuery(categoryUrl);
+
+  const handleClickOpen = (item) => {
     setOpen(true);
+    setSelectedProduct(item);
   };
   const handleClose = () => {
     setOpen(false);
   };
-  const handleCategory = (event, value) => {
+  const handleCategory = (event) => {
+    const value = event.target.value;
     if (value === "all") {
-      setCategoryUrl("products?populate=*");
+      setData(products);
     } else {
-      setCategoryUrl(`products?populate=*&filters[category][$eq]=${value}`);
+      setData(products.filter((item) => item.category === value));
     }
     setCategory(value);
   };
@@ -111,10 +115,8 @@ function MainContent() {
         <AnimatePresence>
           return (
           <>
-            {isLoading && <CircularProgress />}
-            {error && <div>{error.message}</div>}
             {data &&
-              data.data.map((item) => (
+              data.map((item) => (
                 <Card
                   key={item.id}
                   component={motion.section}
@@ -134,9 +136,7 @@ function MainContent() {
                 >
                   <CardMedia
                     sx={{ height: 240 }}
-                    image={`${import.meta.env.VITE_BASE_URL}${
-                      item.productImg[0].url
-                    }`}
+                    image={item.image}
                     title="green iguana"
                   />
 
@@ -147,22 +147,24 @@ function MainContent() {
                       alignItems={"center"}
                     >
                       <Typography gutterBottom variant="h6" component="div">
-                        {item.productTitle}
+                        {item.title}
                       </Typography>
 
                       <Typography variant="subtitle1" component="p">
-                        ${item.productPrice}
+                        ${item.price}
                       </Typography>
                     </Stack>
 
                     <Typography variant="body2" color="text.secondary">
-                      {item.productDescription}
+                      {item.description}
                     </Typography>
                   </CardContent>
 
                   <CardActions sx={{ justifyContent: "space-between" }}>
                     <Button
-                      onClick={handleClickOpen}
+                      onClick={() => {
+                        handleClickOpen(item);
+                      }}
                       sx={{ textTransform: "capitalize" }}
                       size="large"
                     >
@@ -175,7 +177,7 @@ function MainContent() {
                     <Rating
                       precision={0.1}
                       name="read-only"
-                      value={item.productRating}
+                      value={item.rating}
                       readOnly
                     />
                   </CardActions>
@@ -203,7 +205,7 @@ function MainContent() {
         >
           <Close />
         </IconButton>
-        <ProductDetails />
+        <ProductDetails product={selectedProduct} />
       </Dialog>
     </Container>
   );
